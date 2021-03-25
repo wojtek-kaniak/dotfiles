@@ -117,3 +117,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
+if [ -n "$TMUX" ]; then
+	TERM=screen-256color-bce
+fi

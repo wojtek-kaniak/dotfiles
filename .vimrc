@@ -14,7 +14,7 @@ call plug#end()
 set hidden
 set encoding=utf-8 nobomb
 
-let g:python_recommended_style = 0
+"let g:python_recommended_style = 0
 
 set noexpandtab
 set tabstop=4
@@ -24,6 +24,7 @@ set pastetoggle=<leader>p
 
 colorscheme codedark
 set number
+set background=dark
 highlight LineNr ctermfg=darkgrey
 highlight EndOfBuffer ctermfg=bg ctermbg=bg
 set scrolloff=1
