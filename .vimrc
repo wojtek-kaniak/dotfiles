@@ -9,6 +9,8 @@ Plug 'tomasiser/vim-code-dark'
 Plug 'tpope/vim-fugitive'
 Plug 'OmniSharp/Omnisharp-vim'
 Plug 'nickspoons/vim-sharpenup'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'pprovost/vim-ps1'
 call plug#end()
 
 set hidden
@@ -22,6 +24,10 @@ set shiftwidth=4
 set smartindent
 set pastetoggle=<leader>p
 
+"
+" Visual
+"
+
 colorscheme codedark
 set number
 set background=dark
@@ -32,12 +38,28 @@ set laststatus=2
 set fillchars+=vert:\│
 set noshowmode
 set title
+" thin cursor in insert mode, doesn't work in some terminals, taken from https://stackoverflow.com/a/33284744/
+let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
+let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
 
 set history=100
 set mouse=a
 
 set splitbelow
-set termsize=12x0
+set termwinsize=12x0
+
+"
+" Autocompletion
+"
+
+let g:asyncomplete_auto_popup = 1
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+
+"
+" NERDTree
+"
 
 let NERDTreeMinimalUI=1
 
@@ -64,4 +86,6 @@ fu s:disable_lightline_on_nerdtree() abort
 	let nerdtree_winnr = index(map(range(1, winnr('$')), {_,v -> getbufvar(winbufnr(v), '&ft')}), 'nerdtree') + 1
 	call timer_start(0, {-> nerdtree_winnr && setwinvar(nerdtree_winnr, '&stl', '%#Normal#')})
 endfu
+
+set t_u7=  " Fix starting in replace mode in wsl, https://superuser.com/a/1525060/
 
