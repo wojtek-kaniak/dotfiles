@@ -11,7 +11,10 @@ Plug 'OmniSharp/Omnisharp-vim'
 Plug 'nickspoons/vim-sharpenup'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'pprovost/vim-ps1'
+Plug 'vim-scripts/cmdalias.vim'
 call plug#end()
+
+packloadall
 
 set hidden
 set encoding=utf-8 nobomb
@@ -46,7 +49,19 @@ set history=100
 set mouse=a
 
 set splitbelow
-set termwinsize=12x0
+if exists('termwinsize')
+	set termwinsize=12x0
+elseif exists('termsize')
+	set termsize=12x0
+else
+	" Neovim
+	command Terminal new +resize12 term://$SHELL
+	au VimEnter * call CmdAlias('terminal', 'Terminal')
+	au VimEnter * call CmdAlias('term', 'Terminal')
+	au TermOpen * setlocal nonumber norelativenumber
+	au BufWinEnter,WinEnter term://* startinsert
+	tnoremap <Esc> <C-\><C-n>
+endif
 
 "
 " Autocompletion

@@ -5,6 +5,7 @@ fi
 alias cls=clear
 alias ta='tmux attach -t'
 alias status='systemctl status'
+alias nv='nvim'
 
 alias cfggit='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 

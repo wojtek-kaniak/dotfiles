@@ -121,6 +121,12 @@ if [ -n "$TMUX" ]; then
 	TERM=screen-256color-bce
 fi
 
-# Set default editor to vim
-export VISUAL=vim
-export EDITOR=vim
+if [ -f ~/.cargo/env ]; then
+  . "$HOME/.cargo/env"
+fi
+
+# Set default editor to Neovim
+export VISUAL=nvim
+export EDITOR=nvim
+
+
