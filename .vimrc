@@ -49,9 +49,9 @@ set history=100
 set mouse=a
 
 set splitbelow
-if exists('termwinsize')
+if exists('&termwinsize')
 	set termwinsize=12x0
-elseif exists('termsize')
+elseif exists('&termsize')
 	set termsize=12x0
 else
 	" Neovim
