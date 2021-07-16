@@ -1,1 +1,1 @@
-/home/wojtek/.vimrc
+../../.vimrc
