@@ -18,12 +18,29 @@ install_nvim() {
 	printf %512s | tr ' ' '\n' | nvim -c 'PlugInstall | qa!' >/dev/null 2>&1
 }
 
+remove_repo_files() {
+	rm README.md >/dev/null 2>&1
+	cfggit update-index --assume-unchanged README.md
+}
+
+if ! command -v git > /dev/null ; then
+	echo git required
+	exit 1
+fi
+
+if ! command -v curl > /dev/null ; then
+	echo curl required
+	exit 1
+fi
+
 alias cfggit='git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+
 if [ ! -d $HOME/.cfg ] ; then
 	echo Downloading...
 	git clone --bare https://github.com/wojtek-kaniak/dotfiles.git $HOME/.cfg
 	cfggit config --local status.showUntrackedFiles no
 fi
+
 cfggit checkout
 if [ $? -ne 0 ]; then
 	echo Fix errors and rerun this script
@@ -38,5 +55,7 @@ fi
 if command -v nvim > /dev/null ; then
 	install_nvim
 fi
+
+remove_repo_files
 
 echo Done!
